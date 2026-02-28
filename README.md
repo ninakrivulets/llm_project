@@ -1,1 +1,8 @@
-# llm_project
+# Recipe RAG Assistant
+
+> Участники: \
+> Горбатюк Олег \
+> *Сюда сами впишите* \
+> 
+
+[Дизайн документ](./docs/DESIGN.md)
