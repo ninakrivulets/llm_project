@@ -129,3 +129,4 @@ cython_debug/
 .coverage
 node_modules
 dist
+.volumes

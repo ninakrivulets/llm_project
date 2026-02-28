@@ -38,18 +38,18 @@ class OpenAISettings(AppSettings):
         )
 
 class QdrantSettings(AppSettings):
-    qdrant_url: str = ":memory:"
+    url: str = "http://localhost:6333"
     collection: str = "recipes"
 
     model_config = Config(env_prefix="QDRANT_")
 
     @property
     def client(self):
-        return QdrantClient(url=self.qdrant_url)
+        return QdrantClient(url=self.url)
 
     @property
     def async_client(self):
-        return AsyncQdrantClient(url=self.qdrant_url)
+        return AsyncQdrantClient(url=self.url)
 
 
 openai_settings = OpenAISettings()
