@@ -127,3 +127,5 @@ cython_debug/
 .local
 
 .coverage
+node_modules
+dist
