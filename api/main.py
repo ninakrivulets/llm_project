@@ -1,10 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-import agent
+from models import ChatRequest, ChatResponse
 
-from config import openai_settings
-from vector_store import vector_store
+import agent
+from vector_store import vector_store as vs
 
 app = FastAPI()
 
@@ -15,20 +14,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-MOCK_RECIPES_COUNT = 12_483
-
-
-class ChatRequest(BaseModel):
-    message: str
-    history: list[dict] = []
-    filters: dict = {}
-
-
-class ChatResponse(BaseModel):
-    answer: str
-
-
-
 
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat(req: ChatRequest):
@@ -38,4 +23,4 @@ async def chat(req: ChatRequest):
 
 @app.get("/api/recipes/count")
 async def recipes_count():
-    return {"count": await vector_store.count()}
+    return {"count": await vs.count()}
