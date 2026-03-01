@@ -7,6 +7,11 @@
 
 [Дизайн документ](./docs/DESIGN.md)
 
+# Визуал
+
+![image1.png](docs/images/image1.png)
+![image2.png](docs/images/image2.png)
+
 
 # Запуск
 
