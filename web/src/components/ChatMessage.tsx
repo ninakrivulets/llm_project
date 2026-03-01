@@ -50,7 +50,7 @@ export default function ChatMessage({
       <div
         className={`max-w-[720px] w-full px-5 py-4 rounded-2xl text-[15px] leading-[1.65] whitespace-pre-wrap break-words ${
           role === "user"
-            ? "bg-user-bg border border-border"
+            ? "bg-user-bg"
             : "bg-transparent"
         }`}
       >

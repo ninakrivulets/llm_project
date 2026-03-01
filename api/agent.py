@@ -2,15 +2,14 @@ from langchain.agents import create_agent
 from langchain_core.tools import tool
 
 from config import openai_settings
-from vector_store import VectorStore
+from vector_store import vector_store as vs
 
 
 @tool
-def search_recipe(query: str):
+async def search_recipe(query: str):
     """Search recipes by query"""
-    vs = VectorStore()
     print(f"tool invoked: {query}")
-    return vs.search(query)
+    return await vs.search(query)
 
 _agent = create_agent(
     system_prompt="Ты 'Recipe AI' - полезный помощник для рецептов. Отвечай ТОЛЬКО по базе знаний, ничего не выдумывай",

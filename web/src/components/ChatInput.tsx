@@ -47,7 +47,7 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
         <button
           onClick={handleSend}
           disabled={!value.trim() || disabled}
-          className="self-end w-10 h-10 rounded-xl bg-accent text-bg flex items-center justify-center shrink-0 disabled:opacity-30 disabled:cursor-default hover:not-disabled:opacity-85 transition-opacity cursor-pointer"
+          className="self-end w-10 h-10 rounded-xl bg-accent text-white flex items-center justify-center shrink-0 disabled:opacity-30 disabled:cursor-default hover:not-disabled:opacity-85 transition-opacity cursor-pointer"
         >
           <svg
             viewBox="0 0 24 24"

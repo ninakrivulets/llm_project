@@ -59,6 +59,10 @@ export default function App() {
   }, []);
 
   const handleSend = async (text: string) => {
+    if (text.trim() === "/clear") {
+      handleClearHistory();
+      return;
+    }
     const userMsg: Message = { role: "user", content: text };
     const newHistory = [...messages, userMsg];
     setMessages(newHistory);
