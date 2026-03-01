@@ -9,3 +9,20 @@ services:
       QDRANT__SERVICE__MAX_SEARCH_THREADS: "2"
     volumes:
       - .volumes/qdrant_data:/qdrant/storage
+
+  api:
+    build:
+      context: ./api
+    env_file: .env
+    environment:
+      QDRANT_URL: "http://qdrant:6333"
+    depends_on:
+      - qdrant
+
+  web:
+    build:
+      context: ./web
+    ports:
+      - "8000:80"
+    depends_on:
+      - api
