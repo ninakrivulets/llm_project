@@ -23,8 +23,8 @@ from models import Recipe
 
 
 SOURCES = {
-    "povarenok": ROOT / "static" / "Povarenok_recipes.json",
-    "russianfood": ROOT / "static" / "recipes_rf_.json",
+    "povarenok": Path(__file__).resolve().parents[1] / "static" / "Povarenok_recipes.json",
+    "russianfood": Path(__file__).resolve().parents[1] / "static" / "recipes_rf_.json",
 }
 
 
