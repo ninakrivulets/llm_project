@@ -15,7 +15,7 @@ class AppSettings(BaseSettings):
 class OpenAISettings(AppSettings):
     api_key: str
     api_base: str | None = None
-    embedding_model: str = "text-embedding-3-large"
+    embedding_model: str = "text-embedding-3-small"
     chat_model: str = "gpt-5-mini"
     proxy: str | None = None
 
