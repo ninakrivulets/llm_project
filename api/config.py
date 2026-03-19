@@ -52,5 +52,12 @@ class QdrantSettings(AppSettings):
         return AsyncQdrantClient(url=self.url)
 
 
+class PhoenixSettings(AppSettings):
+    collector_endpoint: str | None = None
+
+    model_config = Config(env_prefix="PHOENIX_")
+
+
 openai_settings = OpenAISettings()
 qdrant_settings = QdrantSettings()
+phoenix_settings = PhoenixSettings()

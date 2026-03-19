@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import type { RecipeSource } from "../api";
 
 interface ChatMessageProps {
   role: "user" | "assistant";
   content: string;
+  sources?: RecipeSource[];
   typing?: boolean;
   onTypingDone?: () => void;
+  onShowSources?: (sources: RecipeSource[]) => void;
 }
 
 function formatMd(text: string): string {
@@ -19,8 +22,10 @@ const TICK_MS = 20;
 export default function ChatMessage({
   role,
   content,
+  sources,
   typing,
   onTypingDone,
+  onShowSources,
 }: ChatMessageProps) {
   const [displayed, setDisplayed] = useState(typing ? "" : content);
 
@@ -45,6 +50,8 @@ export default function ChatMessage({
     return () => clearInterval(id);
   }, [content, typing, onTypingDone]);
 
+  const hasSources = sources && sources.length > 0;
+
   return (
     <div className="flex justify-center w-full">
       <div
@@ -60,6 +67,26 @@ export default function ChatMessage({
           </div>
         )}
         <div dangerouslySetInnerHTML={{ __html: formatMd(displayed) }} />
+        {role === "assistant" && hasSources && !typing && (
+          <button
+            onClick={() => onShowSources?.(sources)}
+            className="mt-3 text-xs text-text-secondary hover:text-text transition-colors cursor-pointer flex items-center gap-1"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+            </svg>
+            Источники ({sources.length})
+          </button>
+        )}
       </div>
     </div>
   );

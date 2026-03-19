@@ -3,7 +3,8 @@ import Header from "./components/Header";
 import Welcome from "./components/Welcome";
 import ChatMessage from "./components/ChatMessage";
 import ChatInput from "./components/ChatInput";
-import { getRecipeCount, sendChat, type Message } from "./api";
+import { getRecipeCount, sendChat, type Message, type RecipeSource } from "./api";
+import SourcesPanel from "./components/SourcesPanel";
 import { loadHistory, saveHistory } from "./storage";
 
 export default function App() {
@@ -11,6 +12,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [typingIndex, setTypingIndex] = useState<number | null>(null);
   const [recipeCount, setRecipeCount] = useState<number | null>(null);
+  const [panelSources, setPanelSources] = useState<RecipeSource[] | null>(null);
   const messagesRef = useRef<HTMLDivElement>(null);
 
   // Load history from encrypted localStorage on mount
@@ -69,9 +71,12 @@ export default function App() {
     setLoading(true);
 
     try {
-      const answer = await sendChat(text, newHistory);
+      const { answer, sources } = await sendChat(text, newHistory);
       setMessages((prev) => {
-        const next = [...prev, { role: "assistant" as const, content: answer }];
+        const next = [
+          ...prev,
+          { role: "assistant" as const, content: answer, sources },
+        ];
         setTypingIndex(next.length - 1);
         saveHistory(next);
         return next;
@@ -111,8 +116,10 @@ export default function App() {
                 key={i}
                 role={msg.role}
                 content={msg.content}
+                sources={msg.sources}
                 typing={i === typingIndex}
                 onTypingDone={handleTypingDone}
+                onShowSources={setPanelSources}
               />
             ))}
             {loading && (
@@ -137,6 +144,11 @@ export default function App() {
       <div className="text-center px-4 pb-3.5 text-xs text-text-secondary">
         Recipe AI может ошибаться. Проверяйте информацию об аллергенах.
       </div>
+
+      <SourcesPanel
+        sources={panelSources}
+        onClose={() => setPanelSources(null)}
+      />
     </div>
   );
 }

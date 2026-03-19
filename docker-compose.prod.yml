@@ -35,14 +35,30 @@ services:
       - "traefik.http.routers.qdrant.middlewares=auth"
       - "traefik.http.middlewares.auth.basicauth.users=nlp:$$apr1$$gNLztmz1$$y1ZzDze3cJN1FHhE30VlW0"
 
+  phoenix:
+    image: arizephoenix/phoenix:latest
+    volumes:
+      - .volumes/phoenix_data:/data
+    environment:
+      PHOENIX_WORKING_DIR: /data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.phoenix.rule=Host(`traces.nlp.01eg.ru`)"
+      - "traefik.http.routers.phoenix.entrypoints=websecure"
+      - "traefik.http.routers.phoenix.tls.certresolver=le"
+      - "traefik.http.services.phoenix.loadbalancer.server.port=6006"
+      - "traefik.http.routers.phoenix.middlewares=auth"
+
   api:
     build:
       context: ./api
     env_file: .env
     environment:
       QDRANT_URL: "http://qdrant:6333"
+      PHOENIX_COLLECTOR_ENDPOINT: "http://phoenix:6006/v1/traces"
     depends_on:
       - qdrant
+      - phoenix
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.api.rule=Host(`api.nlp.01eg.ru`)"
