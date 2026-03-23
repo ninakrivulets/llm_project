@@ -10,6 +10,9 @@
 
 [Дизайн документ](./docs/DESIGN.md)
 
+
+[Отчет по INFRA](./docs/INFRA_REPORT.md)
+
 # Визуал
 
 ![image1.png](docs/images/image1.png)
