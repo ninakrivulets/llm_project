@@ -10,6 +10,8 @@
 
 [Дизайн документ](./docs/DESIGN.md)
 
+[Отчет по MVP](./docs/MVP_REPORT.md)
+
 # Визуал
 
 ![image1.png](docs/images/image1.png)
