@@ -10,6 +10,8 @@
 
 [Дизайн документ](./docs/DESIGN.md)
 
+
+[Отчет по INFRA](./docs/INFRA_REPORT.md)
 [Отчет по MVP](./docs/MVP_REPORT.md)
 
 # Визуал
